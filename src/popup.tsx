@@ -4,7 +4,7 @@ import Toggle from "./components/toggle"
 import { useStorage } from "@plasmohq/storage/hook"
 
 function IndexPopup() {
-  const [betterBayEnabled, setBetterBayEnabled] = useStorage("hailing", async (v) => v === undefined ? false : v)
+  const [betterBayEnabled, setBetterBayEnabled] = useStorage("betterBayEnabled", async (v) => v === undefined ? false : v)
 
 
   const handleOnClick = () => {
