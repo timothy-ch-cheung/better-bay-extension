@@ -1,6 +1,7 @@
 import type { PlasmoContentScript } from "plasmo"
 import * as ReactDOM from 'react-dom';
 import Tooltip from "./components/tooltip"
+import "../styles.css"
 
 export const config: PlasmoContentScript = {
     matches: ["https://www.ebay.co.uk/sch/*"]
@@ -18,6 +19,7 @@ function addInfoButton(results) {
         let price = item.getElementsByClassName("s-item__price")[0];
         if (price.childElementCount > 0) {
             let wrapper = document.createElement("div")
+            wrapper.classList.add("inline-block")
             price.appendChild(wrapper)
             ReactDOM.render(<Tooltip />, wrapper)
         }
