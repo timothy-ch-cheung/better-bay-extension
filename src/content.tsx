@@ -13,6 +13,17 @@ import { Storage } from "@plasmohq/storage"
 
 const storage = new Storage()
 
+function getItemIdFromElement(element) {
+    let link = element.getElementsByClassName("s-item__link")[0].href;
+    let itemId = link.match(itemRegex);
+    if (itemId) {
+        return itemId[0];
+    } else {
+        console.log("Unable to extract item id from: " + link)
+        return null;
+    }
+}
+
 function addInfoButton(results) {
     let items = Array.from(results.getElementsByClassName("s-item"));
     return items.map(function (item: HTMLElement) {
@@ -21,7 +32,7 @@ function addInfoButton(results) {
             let wrapper = document.createElement("div")
             wrapper.classList.add("inline-block")
             price.appendChild(wrapper)
-            ReactDOM.render(<Tooltip />, wrapper)
+            ReactDOM.render(<Tooltip itemId={getItemIdFromElement(item)} />, wrapper)
         }
         return price;
     })
