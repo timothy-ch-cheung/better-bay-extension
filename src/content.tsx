@@ -10,6 +10,7 @@ export const config: PlasmoContentScript = {
 const itemRegex = new RegExp(/(?<=\/itm\/)\d+(?=\?)/);
 
 import { Storage } from "@plasmohq/storage"
+import 'flowbite';
 
 const storage = new Storage()
 
