@@ -12,7 +12,6 @@ function createTooltipText(item): string {
         descriptionText += `${key}: ${value}\n`
     }
     return `${item.price}\n` + descriptionText;
-
 }
 
 export default function (props: TooltipProps) {

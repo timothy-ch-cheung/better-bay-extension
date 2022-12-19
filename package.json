@@ -33,7 +33,10 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
+      "https://better-bay-api.onrender.com/*"
+    ],
+    "permissions": [
+      "alarms"
     ]
   }
 }
