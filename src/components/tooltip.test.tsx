@@ -30,10 +30,8 @@ describe("Tooltip", () => {
       }
     })
     fireEvent.mouseOver(tooltipIcon)
-    const response = {
-      123: { price: "0.99", description: { colour: "Black" } }
-    }
-    waitFor(() => {
+
+    await waitFor(() => {
       expect(screen.getByText("0.99").toBeInTheDocument())
       expect(screen.getByText("colour: Black").toBeInTheDocument())
     })

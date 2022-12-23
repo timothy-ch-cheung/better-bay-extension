@@ -1,6 +1,6 @@
 import axios from "axios"
-import React from "react"
-import { useState } from "react"
+import type { BetterBayItem } from "better-bay-common"
+import React, { useState } from "react"
 
 import Spinner from "./spinner"
 
@@ -8,7 +8,7 @@ export interface TooltipProps {
   itemId: string
 }
 
-function createTooltipText(item): string {
+function createTooltipText(item: BetterBayItem): string {
   let descriptionText = ""
   for (const [key, value] of Object.entries(item.description)) {
     descriptionText += `${key}: ${value}\n`
@@ -16,10 +16,10 @@ function createTooltipText(item): string {
   return `${item.price}\n` + descriptionText
 }
 
-export default function (props: TooltipProps) {
+export default function Tooltip(props: TooltipProps): React.ReactElement {
   const [fetched, setFetched] = useState(false)
   const [tooltipContent, setTooltipContent] = useState(<Spinner />)
-  const handleTooltipHover = () => {
+  const handleTooltipHover = (): void => {
     if (!fetched) {
       axios
         .get(
@@ -32,6 +32,9 @@ export default function (props: TooltipProps) {
             </div>
           )
           setFetched(true)
+        })
+        .catch((error: Error) => {
+          console.log(`Failed to get cheapest item [${error.message}]`)
         })
     }
   }

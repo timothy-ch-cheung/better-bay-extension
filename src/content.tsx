@@ -15,27 +15,27 @@ export const config: PlasmoContentScript = {
   matches: ["https://www.ebay.co.uk/sch/*"]
 }
 
-const itemRegex = new RegExp(/(?<=\/itm\/)\d+(?=\?)/)
+const itemRegex = /(?<=\/itm\/)\d+(?=\?)/
 
 const storage = new Storage()
 
-function getItemIdFromElement(element) {
-  let link = element.getElementsByClassName("s-item__link")[0].href
-  let itemId = link.match(itemRegex)
-  if (itemId) {
+function getItemIdFromElement(element): string {
+  const link: string = element.getElementsByClassName("s-item__link")[0].href
+  const itemId: RegExpMatchArray | null = link.match(itemRegex)
+  if (itemId != null) {
     return itemId[0]
   } else {
     console.log("Unable to extract item id from: " + link)
-    return null
+    return ""
   }
 }
 
-function addInfoButton(results) {
-  let items = Array.from(results.getElementsByClassName("s-item"))
+function addInfoButton(results): Element[] {
+  const items = Array.from(results.getElementsByClassName("s-item"))
   return items.map(function (item: HTMLElement) {
-    let price = item.getElementsByClassName("s-item__price")[0]
+    const price = item.getElementsByClassName("s-item__price")[0]
     if (price.childElementCount > 0) {
-      let wrapper = document.createElement("div")
+      const wrapper = document.createElement("div")
       wrapper.classList.add("inline-block")
       price.appendChild(wrapper)
       ReactDOM.render(<Tooltip itemId={getItemIdFromElement(item)} />, wrapper)
@@ -44,10 +44,15 @@ function addInfoButton(results) {
   })
 }
 
-storage.get("betterBayEnabled").then((betterBayEnabled) => {
-  if (betterBayEnabled) {
-    let searchResults = document.getElementsByClassName("srp-results")[0]
-    console.log("Enhancing Page...")
-    addInfoButton(searchResults)
-  }
-})
+storage
+  .get("betterBayEnabled")
+  .then((betterBayEnabled) => {
+    if (betterBayEnabled != null) {
+      const searchResults = document.getElementsByClassName("srp-results")[0]
+      console.log("Enhancing Page...")
+      addInfoButton(searchResults)
+    }
+  })
+  .catch((error: Error) => {
+    console.log(`Failed to enhance page [${error.message}]`)
+  })

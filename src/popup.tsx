@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react"
+import React from "react"
 
 import "../styles.css"
-
-import React from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
 import Toggle from "./components/toggle"
 
-function IndexPopup() {
+function IndexPopup(): React.ReactElement {
   const [betterBayEnabled, setBetterBayEnabled] = useStorage(
     "betterBayEnabled",
     async (v) => (v === undefined ? false : v)
   )
 
-  const handleOnClick = () => {
-    console.log(!betterBayEnabled)
-    setBetterBayEnabled(!betterBayEnabled)
+  const handleOnClick = (): void => {
+    setBetterBayEnabled(betterBayEnabled === false).catch((error: Error) => {
+      console.log(`Failed to set betterBayEnabled [${error.message}]`)
+    })
   }
 
   return (
@@ -39,7 +38,8 @@ function IndexPopup() {
       <hr className="my-2" />
       <a
         href="https://github.com/timothy-ch-cheung/better-bay-extension"
-        target="_blank">
+        target="_blank"
+        rel="noreferrer">
         View Docs
       </a>
     </div>
