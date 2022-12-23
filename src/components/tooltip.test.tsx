@@ -1,6 +1,7 @@
 import { describe, expect, jest, test } from "@jest/globals"
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import axios from "axios"
+import React from "react"
 
 import Tooltip from "./tooltip"
 
