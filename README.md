@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/timothy-ch-cheung/better-bay-extension/branch/main/graph/badge.svg?token=82BFJZ9UZ4)](https://codecov.io/gh/timothy-ch-cheung/better-bay-extension)
+
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 
 ## Getting Started
