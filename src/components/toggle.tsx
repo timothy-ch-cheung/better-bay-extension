@@ -6,7 +6,7 @@ export interface ToggleProps {
   onClick: () => void
 }
 
-export default function (props: ToggleProps) {
+export default function Toggle(props: ToggleProps): React.ReactElement {
   return (
     <label className="inline-flex relative items-center cursor-pointer">
       <input

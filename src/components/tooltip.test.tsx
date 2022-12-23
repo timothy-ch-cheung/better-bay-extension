@@ -19,7 +19,7 @@ describe("Tooltip", () => {
     expect(tooltip).toMatchSnapshot()
   })
 
-  test("Hover Tooltip", async () => {
+  test("Hover Tooltip - API call successful", async () => {
     const spinner = screen.getByRole("status")
     const tooltipIcon = screen.getByText("🏷️")
     expect(spinner).toBeInTheDocument()
@@ -30,12 +30,23 @@ describe("Tooltip", () => {
       }
     })
     fireEvent.mouseOver(tooltipIcon)
-    const response = {
-      123: { price: "0.99", description: { colour: "Black" } }
-    }
+
     waitFor(() => {
       expect(screen.getByText("0.99").toBeInTheDocument())
       expect(screen.getByText("colour: Black").toBeInTheDocument())
+    }).catch((error: Error) => {
+      console.log(`Assertions failed [${error.message}]`)
     })
+  })
+
+  test("Hover Tooltip - API call unsuccessful", async () => {
+    const spinner = screen.getByRole("status")
+    const tooltipIcon = screen.getByText("🏷️")
+    expect(spinner).toBeInTheDocument()
+
+    mockedAxios.get.mockRejectedValue(new Error("Failed to call API"))
+    fireEvent.mouseOver(tooltipIcon)
+
+    expect(spinner).toBeInTheDocument()
   })
 })
