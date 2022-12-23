@@ -3,5 +3,6 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: "coverage",
   coverageProvider: "v8",
-  testEnvironment: "jsdom"
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/setupTests.js"]
 }
