@@ -46,6 +46,8 @@ const BetterBayEnhance: NightwatchTests = {
       .visible
 
     await browser
+      .saveScreenshot("./screens/test.png")
+      .waitForElementVisible(`button[data-test='${FIRST_CHILLI_TOOLTIP}']`)
       .moveToElement(`button[data-test='${FIRST_CHILLI_TOOLTIP}']`, 5, 5)
       .assert.textContains(
         `div[data-test='${FIRST_CHILLI_TOOLTIP_TEXT}']`,
