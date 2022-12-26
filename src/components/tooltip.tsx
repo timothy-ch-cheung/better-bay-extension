@@ -39,7 +39,7 @@ export default function Tooltip(props: TooltipProps): React.ReactElement {
         })
     }
   }
-  const tooltipId = "tooltip-text-" + props.itemId
+  const tooltipId = "bb-tooltip-text-" + props.itemId
 
   return (
     <>
@@ -49,13 +49,14 @@ export default function Tooltip(props: TooltipProps): React.ReactElement {
         data-tooltip-placement="bottom"
         className="px-0.5 py-1 text-white hover:bg-slate-300 focus:outline-none rounded-lg text-center"
         onMouseOver={handleTooltipHover}
-        data-test={`${toTestId(props.itemId)}-bb-tooltip`}>
+        data-test={`bb-tooltip-${toTestId(props.itemId)}`}>
         🏷️
       </button>
       <div
         id={tooltipId}
         role="tooltip"
-        className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+        className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
+        data-test={tooltipId}>
         {tooltipContent}
         <div className="tooltip-arrow" data-popper-arrow></div>
       </div>
