@@ -51,7 +51,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: "chrome",
         chromeOptions: {
-          args: [`--load-extension=${process.cwd()}/build/chrome-mv3-dev`]
+          args: [`--load-extension=${encodedExtensionPath}`]
         }
       },
 
@@ -78,8 +78,7 @@ module.exports = {
             //'--ignore-certificate-errors',
             //'--allow-insecure-localhost',
             //'--headless'
-          ],
-          extensions: [`${process.cwd()}/build/chrome-mv3-dev.crx`]
+          ]
         }
       },
 
