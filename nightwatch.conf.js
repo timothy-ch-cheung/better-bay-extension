@@ -66,6 +66,14 @@ module.exports = {
     },
 
     chrome: {
+      disable_error_log: false,
+
+      screenshots: {
+        enabled: false,
+        path: "screens",
+        on_failure: true
+      },
+
       desiredCapabilities: {
         browserName: "chrome",
         "goog:chromeOptions": {
