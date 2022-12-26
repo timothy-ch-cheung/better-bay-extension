@@ -6,6 +6,7 @@ const BetterBayPopup: NightwatchTests = {
       .navigateTo(
         `chrome-extension://${browser.globals.extension_id}/popup.html`
       )
+      .saveScreenshot("./screens/test.png")
       .assert.not.selected(
         "input[data-test='enabled-toggle']",
         "Extension state has not been reset after test"
