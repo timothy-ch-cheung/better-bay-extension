@@ -24,7 +24,7 @@ jobs:
       - run: sudo apt-get install xvfb
 
       - name: Run Nightwatch tests
-        run: xvfb-run --auto-servernum npm run e2e-test
+        run: xvfb-run --auto-servernum npm run e2e-test -- --env chrome
 
       - uses: actions/upload-artifact@v3
         if: failure()

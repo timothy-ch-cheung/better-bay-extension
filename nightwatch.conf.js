@@ -78,7 +78,10 @@ module.exports = {
             //'--ignore-certificate-errors',
             //'--allow-insecure-localhost',
             //'--headless'
-          ]
+          ],
+          chromeOptions: {
+            args: [`--load-extension=${process.cwd()}/build/chrome-mv3-dev`]
+          }
         }
       },
 
@@ -88,6 +91,10 @@ module.exports = {
         cli_args: [
           // --verbose
         ]
+      },
+
+      globals: {
+        extension_id: "bdefaicadikdookljkkapkgnepbenjia"
       }
     }
   }
