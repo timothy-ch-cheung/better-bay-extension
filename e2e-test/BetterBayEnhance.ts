@@ -18,7 +18,11 @@ const BetterBayEnhance: NightwatchTests = {
     await browser
       .navigateTo("https://www.ebay.co.uk/")
       .sendKeys(`#${SEARCH_BAR_ID}`, "chilli seeds\n")
-      .not.isVisible("button[id$='bb-tooltip']")
+
+    await browser.expect.element("button[data-test$='bb-tooltip']").to.not.be
+      .present
+
+    await browser.end()
   },
 
   "Should add tooltips when extension enabled": async function (browser) {
@@ -26,11 +30,16 @@ const BetterBayEnhance: NightwatchTests = {
       .click("label[data-test='enabled-toggle']")
       .navigateTo("https://www.ebay.co.uk/")
       .sendKeys(`#${SEARCH_BAR_ID}`, "chilli seeds\n")
-      .isVisible("button[id$='bb-tooltip']")
+
+    await browser.expect.element("button[data-test$='bb-tooltip']").to.be
+      .visible
+
+    await browser
       .navigateTo(
         `chrome-extension://${browser.globals.extension_id}/popup.html`
       )
       .click("label[data-test='enabled-toggle']")
+      .end()
   }
 }
 
