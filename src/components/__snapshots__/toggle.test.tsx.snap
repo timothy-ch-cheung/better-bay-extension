@@ -7,10 +7,12 @@ exports[`Toggle Snapshot 1`] = `
     <div>
       <label
         class="inline-flex relative items-center cursor-pointer"
+        data-test="test-toggle-toggle"
       >
         <input
           checked=""
           class="sr-only peer"
+          data-test="test-toggle-toggle"
           type="checkbox"
           value=""
         />
@@ -28,10 +30,12 @@ exports[`Toggle Snapshot 1`] = `
   "container": <div>
     <label
       class="inline-flex relative items-center cursor-pointer"
+      data-test="test-toggle-toggle"
     >
       <input
         checked=""
         class="sr-only peer"
+        data-test="test-toggle-toggle"
         type="checkbox"
         value=""
       />

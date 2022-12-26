@@ -39,7 +39,8 @@ function IndexPopup(): React.ReactElement {
       <a
         href="https://github.com/timothy-ch-cheung/better-bay-extension"
         target="_blank"
-        rel="noreferrer">
+        rel="noreferrer"
+        data-test="docs-link">
         View Docs
       </a>
     </div>
