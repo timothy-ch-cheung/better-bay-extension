@@ -2,6 +2,7 @@ import axios from "axios"
 import type { BetterBayItem } from "better-bay-common"
 import React, { useState } from "react"
 
+import { toTestId } from "../util/id"
 import Spinner from "./spinner"
 
 export interface TooltipProps {
@@ -47,7 +48,8 @@ export default function Tooltip(props: TooltipProps): React.ReactElement {
         type="button"
         data-tooltip-placement="bottom"
         className="px-0.5 py-1 text-white hover:bg-slate-300 focus:outline-none rounded-lg text-center"
-        onMouseOver={handleTooltipHover}>
+        onMouseOver={handleTooltipHover}
+        data-test={`${toTestId(props.itemId)}-bb-tooltip`}>
         🏷️
       </button>
       <div

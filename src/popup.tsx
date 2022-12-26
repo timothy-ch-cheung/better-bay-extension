@@ -12,7 +12,7 @@ function IndexPopup(): React.ReactElement {
     async (v) => (v === undefined ? false : v)
   )
 
-  const handleOnClick = (): void => {
+  const handleOnChange = (): void => {
     setBetterBayEnabled(betterBayEnabled === false).catch((error: Error) => {
       console.log(`Failed to set betterBayEnabled [${error.message}]`)
     })
@@ -33,7 +33,7 @@ function IndexPopup(): React.ReactElement {
       <Toggle
         label="Enabled"
         enabled={betterBayEnabled}
-        onClick={handleOnClick}
+        onChange={handleOnChange}
       />
       <hr className="my-2" />
       <a
