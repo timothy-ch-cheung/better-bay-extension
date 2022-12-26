@@ -13,9 +13,7 @@ jobs:
           node-version: "16.x"
           cache: "npm"
 
-      - run: |
-        touch .env
-        echo CRX_PUBLIC_KEY=${{ secrets.CRX_PUBLIC_KEY }} >> .env
+      - run: echo CRX_PUBLIC_KEY=${{ secrets.CRX_PUBLIC_KEY }} > .env
 
       - run: npm ci
       - run: npm run build --if-present
