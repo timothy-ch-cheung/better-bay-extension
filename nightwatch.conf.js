@@ -61,19 +61,11 @@ module.exports = {
       },
 
       globals: {
-        extension_id: "nkdjmgleenncooclcghcjdmlnpopfdpe"
+        extension_id: process.env.CHROME_EXTENSION_ID
       }
     },
 
     chrome: {
-      disable_error_log: false,
-
-      screenshots: {
-        enabled: false,
-        path: "screens",
-        on_failure: true
-      },
-
       desiredCapabilities: {
         browserName: "chrome",
         "goog:chromeOptions": {
@@ -86,10 +78,7 @@ module.exports = {
             //'--ignore-certificate-errors',
             //'--allow-insecure-localhost',
             //'--headless'
-          ],
-          chromeOptions: {
-            args: [`--load-extension=${process.cwd()}/build/chrome-mv3-dev`]
-          }
+          ]
         }
       },
 
@@ -99,10 +88,6 @@ module.exports = {
         cli_args: [
           // --verbose
         ]
-      },
-
-      globals: {
-        extension_id: "bdefaicadikdookljkkapkgnepbenjia"
       }
     }
   }
