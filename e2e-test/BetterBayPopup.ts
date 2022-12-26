@@ -2,9 +2,14 @@ import { NightwatchTests } from "nightwatch"
 
 const BetterBayPopup: NightwatchTests = {
   beforeEach: function (browser) {
-    browser.navigateTo(
-      `chrome-extension://${browser.globals.extension_id}/popup.html`
-    )
+    browser
+      .navigateTo(
+        `chrome-extension://${browser.globals.extension_id}/popup.html`
+      )
+      .assert.not.selected(
+        "input[data-test='enabled-toggle']",
+        "Extension state has not been reset after test"
+      )
   },
 
   "Should go to github page": async function (browser) {
@@ -26,23 +31,11 @@ const BetterBayPopup: NightwatchTests = {
   "Should control enabled toggle": async function (browser) {
     await browser
       .waitForElementVisible("label[data-test='enabled-toggle']")
-      .assert.attributeEquals(
-        "input[data-test='enabled-toggle']",
-        "checked",
-        "false"
-      )
+      .assert.not.selected("input[data-test='enabled-toggle']")
       .click("label[data-test='enabled-toggle']")
-      .assert.attributeEquals(
-        "input[data-test='enabled-toggle']",
-        "checked",
-        "true"
-      )
+      .assert.selected("input[data-test='enabled-toggle']")
       .click("label[data-test='enabled-toggle']")
-      .assert.attributeEquals(
-        "input[data-test='enabled-toggle']",
-        "checked",
-        "false"
-      )
+      .assert.not.selected("input[data-test='enabled-toggle']")
       .end()
   }
 }
