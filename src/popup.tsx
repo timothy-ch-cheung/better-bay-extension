@@ -5,17 +5,22 @@ import "../styles.css"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import Toggle from "./components/toggle"
+import { BETTER_BAY_ENABLED, FALSE, TRUE } from "./util/constants"
 
 function IndexPopup(): React.ReactElement {
   const [betterBayEnabled, setBetterBayEnabled] = useStorage(
-    "betterBayEnabled",
-    async (v) => (v === undefined ? false : v)
+    BETTER_BAY_ENABLED,
+    async (v) => {
+      return v === undefined ? FALSE : v
+    }
   )
 
   const handleOnChange = (): void => {
-    setBetterBayEnabled(betterBayEnabled === false).catch((error: Error) => {
-      console.log(`Failed to set betterBayEnabled [${error.message}]`)
-    })
+    setBetterBayEnabled(betterBayEnabled === FALSE ? TRUE : FALSE).catch(
+      (error: Error) => {
+        console.log(`Failed to set ${BETTER_BAY_ENABLED} [${error.message}]`)
+      }
+    )
   }
 
   return (
@@ -32,7 +37,7 @@ function IndexPopup(): React.ReactElement {
       <hr className="my-2" />
       <Toggle
         label="Enabled"
-        enabled={betterBayEnabled}
+        enabled={betterBayEnabled === TRUE}
         onChange={handleOnChange}
       />
       <hr className="my-2" />
