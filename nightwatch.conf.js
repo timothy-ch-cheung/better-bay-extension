@@ -51,7 +51,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: "chrome",
         chromeOptions: {
-          args: [`--load-extension=${encodedExtensionPath}`]
+          args: [`--load-extension=${process.cwd()}/build/chrome-mv3-dev`]
         }
       },
 
