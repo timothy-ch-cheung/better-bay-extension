@@ -43,7 +43,7 @@ module.exports = {
         "chrome-extension://nkdjmgleenncooclcghcjdmlnpopfdpe/popup.html",
 
       screenshots: {
-        enabled: false,
+        enabled: true,
         path: "screens",
         on_failure: true
       },
