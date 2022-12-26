@@ -9,7 +9,8 @@
     "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package",
-    "test": "jest"
+    "test": "jest",
+    "e2e-test": "nightwatch"
   },
   "dependencies": {
     "@plasmohq/storage": "^0.13.0",
