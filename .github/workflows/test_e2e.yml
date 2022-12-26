@@ -22,3 +22,9 @@ jobs:
 
       - name: Run Nightwatch tests
         run: xvfb-run --auto-servernum npm run e2e-test -- --env chrome
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: screenshots
+          path: screens
