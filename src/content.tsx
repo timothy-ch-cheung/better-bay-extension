@@ -2,6 +2,7 @@ import type { PlasmoContentScript } from "plasmo"
 import * as ReactDOM from "react-dom"
 
 import Tooltip from "./components/tooltip"
+import { BETTER_BAY_ENABLED, TRUE } from "./util/constants"
 
 import "../styles.css"
 
@@ -45,9 +46,9 @@ function addInfoButton(results): Element[] {
 }
 
 storage
-  .get("betterBayEnabled")
+  .get(BETTER_BAY_ENABLED)
   .then((betterBayEnabled) => {
-    if (betterBayEnabled != null) {
+    if (betterBayEnabled === TRUE) {
       const searchResults = document.getElementsByClassName("srp-results")[0]
       console.log("Enhancing Page...")
       addInfoButton(searchResults)

@@ -42,3 +42,5 @@ keys.json
 .tsbuildinfo
 
 .vscode
+tests_output/
+screens/
