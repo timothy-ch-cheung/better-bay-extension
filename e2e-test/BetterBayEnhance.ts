@@ -48,8 +48,7 @@ const BetterBayEnhance: NightwatchTests = {
     await browser
       .waitForElementVisible(`button[data-test='${FIRST_CHILLI_TOOLTIP}']`)
       .moveToElement(`button[data-test='${FIRST_CHILLI_TOOLTIP}']`, 5, 5)
-      .pause(5000)
-      .waitForElementVisible(`button[data-test='${FIRST_CHILLI_TOOLTIP_TEXT}']`)
+      .waitForElementVisible(`div[data-test='${FIRST_CHILLI_TOOLTIP_TEXT}']`)
       .assert.textContains(
         `div[data-test='${FIRST_CHILLI_TOOLTIP_TEXT}']`,
         "1.18"
