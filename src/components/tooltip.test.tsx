@@ -8,6 +8,11 @@ import Tooltip from "./tooltip"
 jest.mock("axios")
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
+jest.mock("webextension-polyfill", () => ({}))
+jest.mock("@plasmohq/storage/hook", () => ({
+  useStorage: jest.fn().mockReturnValue([{}])
+}))
+
 describe("Tooltip", () => {
   let tooltip
 

@@ -2,6 +2,9 @@ import axios from "axios"
 import type { BetterBayItem } from "better-bay-common"
 import React, { useState } from "react"
 
+import { useStorage } from "@plasmohq/storage/hook"
+
+import { BETTER_BAY_ITEMS } from "../util/constants"
 import { toTestId } from "../util/id"
 import Spinner from "./spinner"
 
@@ -18,27 +21,38 @@ function createTooltipText(item: BetterBayItem): string {
 }
 
 export default function Tooltip(props: TooltipProps): React.ReactElement {
+  const [items] = useStorage(BETTER_BAY_ITEMS)
   const [fetched, setFetched] = useState(false)
   const [tooltipContent, setTooltipContent] = useState(<Spinner />)
+
+  const updateTooltip = (betterBayItem: BetterBayItem): void => {
+    setTooltipContent(
+      <div className="whitespace-pre-line">
+        {createTooltipText(betterBayItem)}
+      </div>
+    )
+    setFetched(true)
+  }
+
   const handleTooltipHover = (): void => {
-    if (!fetched) {
+    if (fetched) {
+      return
+    }
+    const item = items[props.itemId]
+    if (item !== undefined) {
+      updateTooltip(item)
+    } else {
       axios
         .get(
           `https://better-bay-api.onrender.com/v1/items/cheapest?ids=${props.itemId}`
         )
-        .then((response) => {
-          setTooltipContent(
-            <div className="whitespace-pre-line">
-              {createTooltipText(response.data[props.itemId])}
-            </div>
-          )
-          setFetched(true)
-        })
+        .then((response) => updateTooltip(response.data[props.itemId]))
         .catch((error: Error) => {
           console.log(`Failed to get cheapest item [${error.message}]`)
         })
     }
   }
+
   const tooltipId = "bb-tooltip-text-" + props.itemId
 
   return (
