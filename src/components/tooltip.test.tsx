@@ -39,6 +39,7 @@ describe("Tooltip", () => {
     waitFor(() => {
       expect(screen.getByText("0.99").toBeInTheDocument())
       expect(screen.getByText("colour: Black").toBeInTheDocument())
+      expect(mockedAxios.get).toBeCalledTimes(1)
     }).catch((error: Error) => {
       console.log(`Assertions failed [${error.message}]`)
     })
