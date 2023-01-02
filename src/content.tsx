@@ -2,7 +2,7 @@ import type { PlasmoContentScript } from "plasmo"
 import * as ReactDOM from "react-dom"
 
 import Tooltip from "./components/tooltip"
-import { BETTER_BAY_ENABLED, TRUE } from "./util/constants"
+import { BETTER_BAY_ENABLED, BETTER_BAY_ITEMS, TRUE } from "./util/constants"
 
 import "../styles.css"
 
@@ -44,6 +44,19 @@ function addInfoButton(results): Element[] {
     return price
   })
 }
+
+storage
+  .get(BETTER_BAY_ITEMS)
+  .then((betterBayItems) => {
+    if (betterBayItems === undefined) {
+      storage.set(BETTER_BAY_ITEMS, {}).catch((error: Error) => {
+        console.log(`Failed to enhance page [${error.message}]`)
+      })
+    }
+  })
+  .catch((error: Error) => {
+    console.log(`Failed to enhance page [${error.message}]`)
+  })
 
 storage
   .get(BETTER_BAY_ENABLED)
