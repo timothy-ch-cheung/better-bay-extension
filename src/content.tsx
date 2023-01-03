@@ -1,8 +1,16 @@
+import axios from "axios"
 import type { PlasmoContentScript } from "plasmo"
 import * as ReactDOM from "react-dom"
 
 import Tooltip from "./components/tooltip"
-import { BETTER_BAY_ENABLED, BETTER_BAY_ITEMS, TRUE } from "./util/constants"
+import {
+  BETA_ENABLED,
+  BETTER_BAY_ENABLED,
+  BETTER_BAY_ITEMS,
+  GREY_LISTINGS_ENABLED,
+  HIDE_LISTINGS_ENABLED,
+  TRUE
+} from "./util/constants"
 
 import "../styles.css"
 
@@ -31,8 +39,7 @@ function getItemIdFromElement(element): string {
   }
 }
 
-function addInfoButton(results): Element[] {
-  const items = Array.from(results.getElementsByClassName("s-item"))
+function addInfoButton(items): Element[] {
   return items.map(function (item: HTMLElement) {
     const price = item.getElementsByClassName("s-item__price")[0]
     if (price.childElementCount > 0) {
@@ -47,24 +54,65 @@ function addInfoButton(results): Element[] {
 
 storage
   .get(BETTER_BAY_ITEMS)
-  .then((betterBayItems) => {
+  .then(async (betterBayItems) => {
     if (betterBayItems === undefined) {
-      storage.set(BETTER_BAY_ITEMS, {}).catch((error: Error) => {
-        console.log(`Failed to enhance page [${error.message}]`)
-      })
+      return storage.set(BETTER_BAY_ITEMS, {})
     }
   })
   .catch((error: Error) => {
-    console.log(`Failed to enhance page [${error.message}]`)
+    console.log(`Failed initialise item store [${error.message}]`)
   })
+
+async function greyListings(items: HTMLElement[]): Promise<void> {
+  items.map(async (item) => {
+    const itemId = getItemIdFromElement(item)
+    const response = await axios.get(
+      `https://better-bay-api.onrender.com/v1/items/cheapest?ids=${itemId}&analyse=true`
+    )
+    if (response.data[itemId].isRelevant === false) {
+      item.style.opacity = "0.2"
+    }
+  })
+}
+
+async function hideListings(items: HTMLElement[]): Promise<void> {
+  items.map(async (item) => {
+    const itemId = getItemIdFromElement(item)
+    const response = await axios.get(
+      `https://better-bay-api.onrender.com/v1/items/cheapest?ids=${itemId}&analyse=true`
+    )
+    if (response.data[itemId].isRelevant === false) {
+      item.style.display = "none"
+    }
+  })
+}
 
 storage
   .get(BETTER_BAY_ENABLED)
   .then((betterBayEnabled) => {
     if (betterBayEnabled === TRUE) {
       const searchResults = document.getElementsByClassName("srp-results")[0]
+      const items: HTMLElement[] = Array.from(
+        searchResults.getElementsByClassName("s-item")
+      ) as HTMLElement[]
       console.log("Enhancing Page...")
-      addInfoButton(searchResults)
+      addInfoButton(items)
+
+      storage
+        .get(BETA_ENABLED)
+        .then(async (betaEnabled) => {
+          const greyListingsEnabled = await storage.get(GREY_LISTINGS_ENABLED)
+          const hideListingsEnabled = await storage.get(HIDE_LISTINGS_ENABLED)
+
+          if (betaEnabled === TRUE && greyListingsEnabled === TRUE) {
+            return greyListings(items)
+          } else if (betaEnabled === TRUE && hideListingsEnabled === TRUE) {
+            return hideListings(items)
+          }
+        })
+        .catch((error: Error) => {
+          console.log(`Failed to enhance page [${error.message}]`)
+        })
     }
   })
   .catch((error: Error) => {

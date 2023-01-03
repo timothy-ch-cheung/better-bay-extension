@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { BetterBayItem } from "better-bay-common"
+import type { BetterBayItemResponse } from "better-bay-common"
 import React, { useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
@@ -12,7 +12,7 @@ export interface TooltipProps {
   itemId: string
 }
 
-function createTooltipText(item: BetterBayItem): string {
+function createTooltipText(item: BetterBayItemResponse): string {
   let descriptionText = ""
   for (const [key, value] of Object.entries(item.description)) {
     descriptionText += `${key}: ${value}\n`
@@ -25,7 +25,7 @@ export default function Tooltip(props: TooltipProps): React.ReactElement {
   const [fetched, setFetched] = useState(false)
   const [tooltipContent, setTooltipContent] = useState(<Spinner />)
 
-  const updateTooltip = (betterBayItem: BetterBayItem): void => {
+  const updateTooltip = (betterBayItem: BetterBayItemResponse): void => {
     setTooltipContent(
       <div className="whitespace-pre-line">
         {createTooltipText(betterBayItem)}
