@@ -1,4 +1,7 @@
 export const TRUE = "true"
 export const FALSE = "false"
 export const BETTER_BAY_ENABLED = "betterBayEnabled"
+export const BETA_ENABLED = "betaEnabled"
+export const GREY_LISTINGS_ENABLED = "greyListingsEnabled"
+export const HIDE_LISTINGS_ENABLED = "hideListingsEnabled"
 export const BETTER_BAY_ITEMS = "betterBayItems"

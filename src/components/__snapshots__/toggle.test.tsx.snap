@@ -6,7 +6,7 @@ exports[`Toggle Snapshot 1`] = `
   "baseElement": <body>
     <div>
       <label
-        class="inline-flex relative items-center cursor-pointer"
+        class="inline-flex relative items-center cursor-pointer my-0.5"
         data-test="test-toggle-toggle"
       >
         <input
@@ -29,7 +29,7 @@ exports[`Toggle Snapshot 1`] = `
   </body>,
   "container": <div>
     <label
-      class="inline-flex relative items-center cursor-pointer"
+      class="inline-flex relative items-center cursor-pointer my-0.5"
       data-test="test-toggle-toggle"
     >
       <input
