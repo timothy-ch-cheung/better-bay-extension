@@ -15,6 +15,7 @@ npm run build
 
 ## Dependencies
 Backend API: https://github.com/timothy-ch-cheung/better-bay-api
+
 eBay Developer API calls and NLP: https://github.com/timothy-ch-cheung/better-bay-common
 
 ## Browser Extension
