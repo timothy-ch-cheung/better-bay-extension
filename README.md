@@ -13,6 +13,10 @@ npm run dev
 npm run build
 ```
 
+## Dependencies
+Backend API: https://github.com/timothy-ch-cheung/better-bay-api
+eBay Developer API calls and NLP: https://github.com/timothy-ch-cheung/better-bay-common
+
 ## Browser Extension
 ### Problem
 When browsing eBay and sorting items by price low-high, we often get inaccurate results due to adding a cheaper item in the listing to rank higher in the sort. For example: 
